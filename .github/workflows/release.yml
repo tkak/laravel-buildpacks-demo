@@ -11,12 +11,14 @@ jobs:
     - id: setup-pack
       uses: buildpacks/github-actions/setup-pack@v4.4.0
     - name: Build image
-      uses: mamezou-tech/buildpacks-action@master
-      with:
-        image: "ghcr.io/${{ github.actor }}/laravel-buildpacks-demo/laravel-buildpacks-demo"
-        tag: "${{ github.sha }}"
-        builder: 'gcr.io/paketo-buildpacks/builder:base'
-        buildpacks: 'paketo-buildpacks/php'
+      run: |
+        pack build ghcr.io/${{ github.actor }}/laravel-buildpacks-demo/laravel-buildpacks-demo:${{ github.sha }} --buildpack paketo-buildpacks/php --builder paketobuildpacks/builder:full
+      #uses: mamezou-tech/buildpacks-action@master
+      #with:
+      #  image: "ghcr.io/${{ github.actor }}/laravel-buildpacks-demo/laravel-buildpacks-demo"
+      #  tag: "${{ github.sha }}"
+      #  builder: 'gcr.io/paketo-buildpacks/builder:base'
+      #  buildpacks: 'paketo-buildpacks/php'
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v2
       with:
