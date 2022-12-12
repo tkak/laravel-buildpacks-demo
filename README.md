@@ -1,2 +1,2 @@
 # laravel-buildpacks-demo
-A demo CakePHP application with Buildpacks
+A demo Laravel application with Buildpacks on Kubernetes
