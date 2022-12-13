@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/healthz', function () {
+Route::get('/live', function () {
     return 'ok';
 });
 
