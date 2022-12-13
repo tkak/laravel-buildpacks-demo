@@ -16,3 +16,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/healthz', function () {
+    return 'ok';
+});
+
+Route::get('/ready', function () {
+/*
+    TODO
+    $check = DB::table('check')->count();
+    if ($check > 0) {
+        return 'ok';
+    }
+    return response('', 500);
+*/
+    return 'ok';
+});
