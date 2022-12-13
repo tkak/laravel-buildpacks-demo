@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - id: setup-pack
-      uses: buildpacks/github-actions/setup-pack@v4.4.0
+      uses: buildpacks/github-actions/setup-pack@v4.9.0
     - name: Build image
       run: |
         pack build --clear-cache --env=BP_LOG_LEVEL=DEBUG \
