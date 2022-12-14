@@ -13,10 +13,13 @@ spec:
     metadata:
       labels:
         app: laravel-buildpacks-demo
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "9253"
     spec:
-      #automountServiceAccountToken: true
       containers:
-      - name: fpm
+      - name: php-fpm
         image: ghcr.io/tkak/laravel-buildpacks-demo:3c1eeb2ebc0ecfe89aa758f109ee35cc32c1731b
         imagePullPolicy: IfNotPresent
         ports:
@@ -44,8 +47,36 @@ spec:
           readOnly: true
           mountPath: "/workspace/.env"
           subPath: .env
+        - name: tmp
+          mountPath: /tmp
+
+      - name: php-fpm-exporter
+        image: ghcr.io/hipages/php-fpm_exporter:2
+        securityContext:
+          runAsUser: 1000
+        ports:
+        - name: exporter
+          containerPort: 9253
+        env:
+        - name: PHP_FPM_SCRAPE_URI
+          value: "unix:///tmp/php-fpm.socket"
+        - name: PHP_FPM_FIX_PROCESS_COUNT
+          value: "true"
+        resources:
+          requests:
+            cpu: 10m
+            memory: 800Mi
+          limits:
+            cpu: 10m
+            memory: 800Mi
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+
       volumes:
       - name: dotenv
         secret:
           secretName: dotenv
+      - name: tmp
+        emptyDir: {}
           
