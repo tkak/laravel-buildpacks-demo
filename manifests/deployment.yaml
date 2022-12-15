@@ -5,7 +5,7 @@ metadata:
   labels:
     app: laravel-buildpacks-demo
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: laravel-buildpacks-demo
@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: php-fpm
-        image: ghcr.io/tkak/laravel-buildpacks-demo:3c1eeb2ebc0ecfe89aa758f109ee35cc32c1731b
+        image: ghcr.io/tkak/laravel-buildpacks-demo:0b9d190067fd776cfce4eca978d9d7450ce19ed6
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
@@ -59,7 +59,7 @@ spec:
           containerPort: 9253
         env:
         - name: PHP_FPM_SCRAPE_URI
-          value: "unix:///tmp/php-fpm.socket"
+          value: "unix:///tmp/php-fpm.socket;/status"
         - name: PHP_FPM_FIX_PROCESS_COUNT
           value: "true"
         resources:
