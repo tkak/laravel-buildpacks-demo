@@ -1,0 +1,15 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: laravel-buildpacks-demo
+build:
+  artifacts:
+  - image: ghcr.io/tkak/laravel-buildpacks-demo
+    buildpacks:
+      builder: paketobuildpacks/builder:full
+      env:
+      - "BP_LOG_LEVEL=DEBUG"
+manifests:
+  rawYaml:
+  - manifests/deployment.yaml
+  - manifests/service.yaml
