@@ -9,6 +9,7 @@ build:
       builder: paketobuildpacks/builder:full
       env:
       - "BP_LOG_LEVEL=DEBUG"
+      clearCache: true
 manifests:
   rawYaml:
   - manifests/deployment.yaml
